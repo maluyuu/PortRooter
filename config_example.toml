@@ -1,15 +1,23 @@
-# ポートルーターの設定ファイル
-
 # 集約ポート（このポートで待ち受けます）
 router_port = 3015
 
 # ルーティング先のポート設定
 [[targets]]
-name = "開発"
+name = "フロントエンド開発サーバー"
 port = 3000
-description = "開発用ポート"
+description = "Reactアプリケーション"
 
 [[targets]]
-name = "アプリ1"
+name = "バックエンドAPI"
 port = 3001
-description = "Aアプリ用ポート"
+description = "Express API サーバー"
+
+[[targets]]
+name = "データベース管理画面"
+port = 3002
+description = "PostgreSQL Admin"
+
+[[targets]]
+name = "Storybook"
+port = 6006
+description = "コンポーネントカタログ"
