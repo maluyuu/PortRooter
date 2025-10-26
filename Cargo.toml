@@ -1,0 +1,16 @@
+[package]
+name = "portrooter"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tokio = { version = "1.41", features = ["full"] }
+axum = "0.7"
+hyper = { version = "1.5", features = ["full"] }
+hyper-util = { version = "0.1", features = ["full"] }
+tower = "0.5"
+serde = { version = "1.0", features = ["derive"] }
+toml = "0.8"
+http-body-util = "0.1"
+urlencoding = "2.1"
+html-escape = "0.2"

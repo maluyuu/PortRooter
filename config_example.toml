@@ -1,0 +1,15 @@
+# ポートルーターの設定ファイル
+
+# 集約ポート（このポートで待ち受けます）
+router_port = 3015
+
+# ルーティング先のポート設定
+[[targets]]
+name = "開発"
+port = 3000
+description = "開発用ポート"
+
+[[targets]]
+name = "アプリ1"
+port = 3001
+description = "Aアプリ用ポート"
