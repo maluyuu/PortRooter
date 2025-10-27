@@ -464,15 +464,27 @@ async fn proxy_handler(
     let target_name = params.get("target_name")
         .ok_or(StatusCode::BAD_REQUEST)?;
 
+    println!("🛰️ プロキシ要求を受信 target_name='{}'", target_name);
+
     // ターゲットを検索
-    let target = state.config.targets
+    let target = match state.config.targets
         .iter()
-        .find(|t| &t.name == target_name)
-        .ok_or(StatusCode::NOT_FOUND)?;
+        .find(|t| &t.name == target_name) {
+        Some(t) => t,
+        None => {
+            eprintln!("❗ ターゲットが見つかりません: '{}'. 登録済み: {:?}", target_name, state.config.targets.iter().map(|t| t.name.clone()).collect::<Vec<_>>());
+            return Err(StatusCode::NOT_FOUND);
+        }
+    };
 
     // リクエストURIから実際のパスを取得
     let request_path = req.uri().path().to_string();
-    let encoded_target_name = urlencoding::encode(target_name);
+    let encoded_target_name = request_path
+        .trim_start_matches("/proxy/")
+        .split('/')
+        .next()
+        .unwrap_or("")
+        .to_string();
     let prefix = format!("/proxy/{}", encoded_target_name);
 
     // プレフィックスを除去して、残りのパスを取得
