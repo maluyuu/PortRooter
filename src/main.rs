@@ -310,7 +310,7 @@ async fn fallback_handler(
             }
 
             // プロキシリクエストを送信（10秒のタイムアウト）
-            let response = match timeout(Duration::from_secs(10), state.client.request(req)).await {
+            let response = match timeout(Duration::from_secs(90), state.client.request(req)).await {
                 Ok(Ok(response)) => {
                     println!("✅ フォールバック成功: ステータス {}", response.status());
                     response
@@ -570,7 +570,7 @@ async fn proxy_handler(
     }
 
     // プロキシリクエストを送信（10秒のタイムアウト）
-    let response = match timeout(Duration::from_secs(10), state.client.request(req)).await {
+    let response = match timeout(Duration::from_secs(90), state.client.request(req)).await {
         Ok(Ok(response)) => {
             println!("✅ プロキシ成功: ステータス {}", response.status());
             response
